@@ -8,8 +8,8 @@ class AppViewModelFactory (var context: Context) : ViewModelProvider.NewInstance
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass == ContactActivityViewModel::class.java){
-
-            return ContactActivityViewModel(context) as T
+            //return ContactsActivityViewModel(context) as T
+            return super.create(modelClass) as T
         }else{
             return super.create(modelClass)
 

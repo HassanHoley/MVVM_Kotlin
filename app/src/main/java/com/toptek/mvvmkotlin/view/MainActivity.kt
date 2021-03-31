@@ -5,23 +5,29 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.toptek.mvvmkotlin.R
+import com.toptek.mvvmkotlin.di_modules.DaggerApplicationComponent
 import com.toptek.mvvmkotlin.modle.ContactList
 import com.toptek.mvvmkotlin.modle.DataResponse
 import com.toptek.mvvmkotlin.repository.RetrofitContactRepository
 import com.toptek.mvvmkotlin.viewmodle.AppViewModelFactory
 import com.toptek.mvvmkotlin.viewmodle.ContactActivityViewModel
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    public lateinit var vm: ContactActivityViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //  var repository = RetrofitContactRepository()
+
+        DaggerApplicationComponent.create().inject(this)
 
 
-      //  var repository = RetrofitContactRepository()
-
-        var viewModelProvider = ViewModelProvider(this,AppViewModelFactory(applicationContext))
-      var vm =  viewModelProvider.get(ContactActivityViewModel::class.java)
 
         vm.dataResponse.observe(this,{
 
@@ -32,8 +38,6 @@ class MainActivity : AppCompatActivity() {
                        Log.d("ttt",c.name)
 
                    }
-
-
                 }
 
             }else if (it.result == DataResponse.Result.FAILURE) {

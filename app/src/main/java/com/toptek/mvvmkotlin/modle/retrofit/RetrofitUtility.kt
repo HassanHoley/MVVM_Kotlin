@@ -2,10 +2,11 @@ package com.toptek.mvvmkotlin.modle.retrofit
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-object RetrofitUtility {
-        private const val baseUrl:String = "https://api.androidhive.info/"
-          public var client :APIServer
+class RetrofitUtility @Inject constructor() {
+    private val baseUrl: String = "https://api.androidhive.info/"
+    public var client: APIServer
 
     init {
         var builder = Retrofit.Builder()
